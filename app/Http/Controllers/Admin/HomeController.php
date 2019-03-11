@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Admin\Product;
+use App\Models\Admin\Payment;
 
 class HomeController extends Controller
 {
@@ -21,8 +24,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Product $products)
     {
-        return view('home');
+        $info = $products->getInfo();
+        $info['path'] = storage_path('app/products/');
+        
+        return view('admin.home.index', compact('info'));
     }
 }
