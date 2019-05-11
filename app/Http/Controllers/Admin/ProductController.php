@@ -73,7 +73,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return view('admin.product.show');
+        $product = Product::where('id', $id)->with('payments')->first();
+
+        return view('admin.product.show', compact('product'));
     }
 
     /**

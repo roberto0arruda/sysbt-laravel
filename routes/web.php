@@ -11,5 +11,5 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin'], function() {
 Auth::routes();
 
 $this->get('admin', 'Admin\HomeController@index')->name('admin.home');
-Route::resource('/products', 'Admin\ProductController');
+$this->resource('/products', 'Admin\ProductController');
 $this->resource('/finances', 'Admin\FinanceController');

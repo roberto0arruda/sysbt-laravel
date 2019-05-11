@@ -15,7 +15,7 @@
 @section('content')
     <div class="box">
         <div class="box-header">
-            <a href="" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</a>
+            <a href="{{ route('products.index')}}" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</a>
         </div>
         
         <div class="box-body">
