@@ -126,6 +126,14 @@
         </div>
         <!-- /.content-wrapper -->
 
+        <!-- footer -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                Versão <strong>beta0.1</strong>
+            </div>
+            &copy; {{ date('Y') }} Created by <a href="http://github.com/roberto0arruda"><i class="fa fa-fw fa-github-alt"></i> Roberto Arruda</a>
+            <br/>
+        </footer>
     </div>
     <!-- ./wrapper -->
 @stop

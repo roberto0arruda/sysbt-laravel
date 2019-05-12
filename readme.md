@@ -7,8 +7,8 @@
 <strong>SysBt</strong> é um aplicativo web feito com Laravel Framework:
 o app consiste em gerenciar e armazenar as informações da venda dos celulares.
 
-hospedado em: [Hostoo](http://roberto1.hostoo.net/home)
+hospedado em: [Heroku](http://sysbt.herokuapp.com)
 
-## Deselvolvedor
+## Developer
 
 [@roberto0arruda](https://github.com/roberto0arruda)
