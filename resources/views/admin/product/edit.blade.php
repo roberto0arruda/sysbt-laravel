@@ -38,17 +38,17 @@
 
                 <div class="form-group">
                     <label for="client">Pra Quem Vendeu?</label>
-                    <input type="text" class="form-control" name="client" placeholder="nome">
+                    <input type="text" class="form-control" name="client" placeholder="nome" required>
                 </div>
 
                 <div class="form-group">
                     <label for="value">Entrada</label>
-                    <input type="text" class="form-control" name="value" placeholder="R$">
+                    <input type="text" class="form-control" name="value" placeholder="R$" required>
                 </div>
 
                 <div class="form-group">
                     <label for="x">Mais</label>
-                    <input type="number" class="form-control" name="x" placeholder="número de parcelas">
+                    <input type="number" class="form-control" name="x" placeholder="número de parcelas" required>
                 </div>
 
                 <div class="form-group">

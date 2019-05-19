@@ -44,7 +44,7 @@
                                     @if ($product->sold != 1)
                                         <a href="{{route('products.edit', $product->id)}}" class="btn btn-xs btn-danger"><i class="fa fa-money" aria-hidden="true"></i> Vender</a>
                                     @else
-                                        <a href="#" class="btn btn-xs btn-success"><i class="fa fa-like" aria-hidden="true"></i> Vendido</a>
+                                        <a href="#" class="btn btn-xs btn-success"><i class="fa fa-like" aria-hidden="true"></i> Vendido</a> | {{$product->client}}
                                     @endif
                                 </td>
                             </tr>
@@ -58,7 +58,8 @@
                     <tr>
                         <th>Parcelas</th>
                         <th>Vencimentos</th>
-                        <th>tag</th>
+                        <th></th>
+                        <th>DT Baixa</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,11 +67,14 @@
                         <tr>
                             <td>{{$payment->id}}</td>
                             <td>{{$payment->venciment}}</td>
-                            @if ($payment->paid == 1)
-                                <td>recebido</td>
-                            @else
-                                <td>a receber</td>
-                            @endif
+                            <td>
+                                @if ($payment->paid != 1)
+                                    <a href="{{route('finances.edit', [$payment->id])}} " id="receber" class="btn btn-xs btn-danger"><i class="fa fa-money" aria-hidden="true"></i> receber</a>
+                                @else
+                                    <label class="btn btn-xs btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> ok</label>
+                                @endif
+                            </td>
+                            <td> @if ($payment->paid == 1) {{ date('d-m-Y H:m:s', strtotime($payment->updated_at)) }} @endif </td>
                         </tr>
                     @endforeach
                 </tbody>

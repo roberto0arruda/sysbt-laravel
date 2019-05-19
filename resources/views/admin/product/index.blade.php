@@ -36,8 +36,8 @@
                         <tr @if ($product->sold == 1) class="danger" @endif> </tr>
                             <td>{{$product->id}}</td>
                             <td>{{$product->title}}</td>
-                            <td>{{$product->price_buy}}</td>
-                            <td>{{$product->price_sale}}</td>
+                            <td>R$ {{number_format($product->price_buy, 2,'.',' ')}}</td>
+                            <td>R$ {{number_format($product->price_sale, 2,'.',' ')}}</td>
                             <td>
                                 <a href="{{route('products.show', $product->id)}}" class="btn btn-xs btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Show</a>
                                 @if ($product->sold != 1)
