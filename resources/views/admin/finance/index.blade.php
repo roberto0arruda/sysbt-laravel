@@ -28,7 +28,6 @@
                             <th>Parcela</th>
                             <th>DT Vencer</th>
                             <th>Valor</th>
-                            <th>Cliente</th>
                             <th>Recebeu em</th>
                             <th>Action</th>
                         </tr>
@@ -43,14 +42,14 @@
                             <td>{{$payment->parc}}</td>
                             <td>{{ date('d-m-Y', strtotime($payment->venciment) ) }}</td>
                             <td>R$ {{ number_format($payment->value, 2)}}</td>
-                            <td>{{$payment->product->client}}</td>
                             <td> @if ($payment->paid == 1) {{ date('d-m-Y H:m:s', strtotime($payment->updated_at)) }} @endif </td>
                             <td>
                                 @if ($payment->paid != 1)
                                     <a href="{{route('finances.edit', [$payment->id])}} " id="receber" class="btn btn-xs btn-danger"><i class="fa fa-money" aria-hidden="true"></i> receber</a>
                                 @else
-                                    <label class="btn btn-xs btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> ok</label>
+                                    <label class="btn btn-xs btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> recebeu</label>
                                 @endif
+                                {{$payment->product->client}}
                             </td>
                         </tr>                        
                         @endforeach
