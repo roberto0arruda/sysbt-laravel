@@ -1,15 +1,13 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/', 'FrontController');
+// Route::get('/{item}', 'FrontController@item');
 
-$this->group(['middleware' => ['auth'], 'namespace' => 'Admin'], function() {
-    // 
-});
-
+Route::get('settings/user', 'ShowProfile')->middleware(['auth', 'verified']);
 Auth::routes();
+$this->group(['middleware' => ['auth'], 'namespace' => 'Admin'], function() {
+    $this->get('admin', 'HomeController@index')->name('admin.home');
+    $this->resource('admin/products', 'ProductController');
+    $this->resource('admin/finances', 'FinanceController');
+});
 
-$this->get('admin', 'Admin\HomeController@index')->name('admin.home');
-$this->resource('/products', 'Admin\ProductController');
-$this->resource('/finances', 'Admin\FinanceController');

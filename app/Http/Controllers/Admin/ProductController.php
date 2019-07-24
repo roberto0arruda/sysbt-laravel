@@ -40,28 +40,29 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $dataForm = $request->except('_token');
-        
+
         $product = Product::create($dataForm);
 
         if ($product) {
-            $response = ['success' => true, 'message' => 'compra efetuada com sucesso'];
+            $response = ['success' => true, 'message' => "{$product->title} cadastrado com sucesso"];
             if($request->hasFile('image') && $request->file('image')->isValid()) {
                 $name = $product->id.kebab_case($product->title);
                 $extension = $request->image->extension();
                 $fileName = "{$name}.{$extension}";
                 $product->image = $fileName;
-                $product->save();
                 $upload = $request->image->storeAs('products', $fileName);
                 if(!$upload)
                     $response['message'] .= ' - Falha ao salvar imagem';
-            }            
+                else
+                    $product->save();
+            }
         } else {
-            $response = ['success' => false, 'message' => 'Falha ao comprar.'];
+            $response = ['success' => false, 'message' => 'Falha ao cadastrar.'];
         }
-        
+
         if($response['success'])
             return redirect()->route('products.index')->with('success', $response['message']);
-        
+
         return redirect()->back()->with('error', $response['message']);
     }
 

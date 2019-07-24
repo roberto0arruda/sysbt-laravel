@@ -15,12 +15,9 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->float('price_buy', 8, 2);
-            $table->float('price_sale', 8, 2);
+            $table->string('title')->unique();
+            $table->decimal('price', 8, 2);
             $table->string('image')->nullable();
-            $table->string('client')->nullable();
-            $table->boolean('sold')->default(false);
             $table->timestamps();
         });
     }

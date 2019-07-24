@@ -8,7 +8,7 @@ use DB;
 
 class Product extends Model
 {
-    protected $fillable = ['title', 'price_buy', 'price_sale'];
+    protected $fillable = ['title', 'price'];
 
     public function sale($data)
     {
