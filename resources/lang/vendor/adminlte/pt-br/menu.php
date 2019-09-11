@@ -4,7 +4,8 @@ return [
 
     'main_navigation'               => 'Navegação Principal',
     'blog'                          => 'Blog',
-    'pages'                         => 'Página',
+    'product_management'            => 'Gestão de Produtos',
+    'products'                      => 'Produtos',
     'account_settings'              => 'Configurações da Conta',
     'profile'                       => 'Perfil',
     'change_password'               => 'Mudar Senha',
@@ -16,4 +17,5 @@ return [
     'Important'                     => 'Importante',
     'Warning'                       => 'Aviso',
     'Information'                   => 'Informação',
+
 ];
