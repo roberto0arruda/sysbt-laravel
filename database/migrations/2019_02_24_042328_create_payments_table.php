@@ -19,7 +19,8 @@ class CreatePaymentsTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedInteger('order_id')->nullable();
             $table->decimal('value', 15, 2);
-            $table->date('dt');
+            $table->date('dt_vnc');
+            $table->date('dt_bxa')->nullable();
             $table->boolean('paid')->default(false);
             $table->timestamps();
         });

@@ -51,7 +51,8 @@ class ProductController extends Controller
         if ($product) {
             // criar uma ordem com o valor de compra e a data
             $data = $request->all();
-            if (filled($request->input('value'), $request->has('dt'))) {
+            if (filled($request->input('value'), $request->has('data'))) {
+                $data['dt_vnc'] = $data['dt_bxa'] = $request->input('data');
                 $product->payments()->create($data);
                 $product->stock += 1;
                 $product->save();

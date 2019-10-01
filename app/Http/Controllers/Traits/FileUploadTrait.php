@@ -24,9 +24,9 @@ trait FileUploadTrait
             if ($request->hasFile($key)) {
                 if ($request->has($key . '_max_width') && $request->has($key . '_max_height')) {
                     // Check file width
-                    $fileName	= time() . '-' . $request->file($key)->getClientOriginalName();
-                    $file		= $request->file($key);
-                    $image		= Image::make($file);
+                    $fileName = time() . '-' . $request->file($key)->getClientOriginalName();
+                    $file     = $request->file($key);
+                    $image    = Image::make($file);
 
                     Image::make($file)->resize(50, 50)->save($thumbPath . '/' . $fileName);
 

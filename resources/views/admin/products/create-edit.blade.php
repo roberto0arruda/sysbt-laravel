@@ -56,7 +56,7 @@
               <div class="input-group">
                 <span class="input-group-addon">R$</span>
                 {!! Form::number('value', old('value'), ['class' => 'form-control', 'min' => '1', 'placeholder' => 'Quanto custou esse produto?']) !!}
-                <span class="input-group-addon">.00</span>
+                <span class="input-group-addon">,00</span>
               </div>
               @if($errors->has('value'))
                 <p class="help-block">{{ $errors->first('value') }}</p>
@@ -64,9 +64,9 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="form-group @if($errors->has('dt')) has-error @endif">
-              {!! Form::label('dt', 'Data da Compra', ['class' => 'form-label']) !!}
-              {!! Form::date('dt', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
+            <div class="form-group @if($errors->has('data')) has-error @endif">
+              {!! Form::label('data', 'Data da Compra', ['class' => 'form-label']) !!}
+              {!! Form::date('data', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
             </div>
           </div>
           <div class="col-md-4">

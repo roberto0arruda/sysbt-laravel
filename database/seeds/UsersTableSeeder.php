@@ -12,16 +12,19 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name'      => 'Roberto Arruda',
-            'email'     => 'roberto@bt.com',
-            'password'  => bcrypt('123456'),
-        ]);
+        $items = [
+            [
+                'id' => 1,
+                'name' => 'Roberto Arruda',
+                'email' => 'roberto0arruda@hotmail.com',
+                'password' => '$2y$10$NLQe901.efYEZb8g2CxTvurH35rlrMYSUUQrGPk3hH.UjfaD1.aOm',
+                'role' => 1,
+                'remember_token' => '',
+            ],
+        ];
 
-        User::create([
-            'name'      => 'Tatiane Santos',
-            'email'     => 'tatiane@bt.com',
-            'password'  => bcrypt('123456'),
-        ]);
+        foreach ($items as $item) {
+            User::create($item);
+        }
     }
 }
