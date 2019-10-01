@@ -146,7 +146,10 @@ return [
             'icon'    => 'fas fa-store',
             'target' => '_blank'
         ],
-        ['header' => 'management'],
+        [
+            'header' => 'management',
+            'can'   => 'admin'
+        ],
         [
             'text'        => 'products',
             'url'         => 'admin/products',
@@ -154,6 +157,7 @@ return [
             'label'       => 4,
             'label_color' => 'success',
             'active'      => ['admin/products','admin/products/*'],
+            'can'         => 'admin'
         ],
         [
             'text'       => 'orders',
@@ -161,6 +165,7 @@ return [
             'icon'       => 'fas fa-inbox',
             'icon_color' => 'yellow',
             'active'     => ['admin/orders','admin/orders/*'],
+            'can'        => 'admin'
         ],
         [
             'text'       => 'payments',
@@ -168,6 +173,7 @@ return [
             'icon'       => 'fas fa-wallet',
             'icon_color' => 'aqua',
             'active'     => ['admin/payments','admin/payments/*'],
+            'can'        => 'admin'
         ],
         ['header' => 'account_settings'],
         [
@@ -184,44 +190,6 @@ return [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
         ],
         ['header' => 'labels'],
     ],
