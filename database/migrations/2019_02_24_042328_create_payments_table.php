@@ -17,9 +17,10 @@ class CreatePaymentsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->string('parc', 2);
-            $table->float('value', 8, 2);
-            $table->date('venciment');
+            $table->unsignedInteger('order_id')->nullable();
+            $table->decimal('value', 15, 2);
+            $table->date('dt_vnc');
+            $table->date('dt_bxa')->nullable();
             $table->boolean('paid')->default(false);
             $table->timestamps();
         });

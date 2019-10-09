@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Product;
-use App\Models\Admin\Payment;
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -24,11 +23,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Product $products)
+    public function index()
     {
-        $info = $products->getInfo();
-        $info['path'] = storage_path('app/products/');
-        
-        return view('admin.home.index', compact('info'));
+        if (Gate::allows('admin')) {
+            return view('admin.dashboard');
+        } else {
+            return redirect()->route('client');
+        }
     }
 }
