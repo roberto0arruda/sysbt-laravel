@@ -45,13 +45,13 @@
           <div class="card h-100">
             <a href="#"><img class="card-img-top" src="{{ $item->photo1 ? asset('storage/products/'.$item->photo1) : 'http://placehold.it/700x400'}}" alt="{{ $item->title }}"></a>
             <div class="card-body">
-              <h4 class="card-title"><a href="{{ str_replace(' ', '_', strtolower($item->title)) }}">{{ $item->title }}</a></h4>
+              <h4 class="card-title"><a href="{{ route('shop-item', str_replace(' ', '_', strtolower($item->title))) }}">{{ $item->title }}</a></h4>
               <h5>R$ {{ number_format($item->price, 2,',','.') }}</h5>
               <p class="card-text"><pre>{{ $item->description }}</pre></p>
             </div>
             <div class="card-footer">
               <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              <small class="text-muted float-right">&#10084;</small>
+              <small class="text-muted float-right">{{ $item->likes }} &#10084;</small>
             </div>
           </div>
         </div>

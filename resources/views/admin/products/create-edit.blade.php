@@ -29,16 +29,6 @@
       <h3 class="panel-title">{{ !isset($product) ? 'Cadastrar' : 'Editar' }}</h3>
     </div>
     <div class="panel-body">
-      @if (!isset($product))
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="icheck-primary">
-            <input type="checkbox" name="comprar" id="comprar">
-            <label for="comprar">Comprar</label>
-          </div>
-        </div>
-      </div>
-      @endif
 
       <div class="form-group @if($errors->has('title')) has-error @endif">
         {!! Form::label('title', 'Título', ['class'=>'form-label']) !!}
@@ -50,7 +40,15 @@
 
       <div class="row">
         @if (!isset($product))
+
           <div class="col-md-4">
+            <span class="fas fa-shopping-cart"></span>
+            <div class="icheck-primary">
+              <input type="checkbox" name="comprar" id="comprar">
+              <label for="comprar">Você está comprando?</label>
+            </div>
+          </div>
+          <div class="col-md-4" id="divValueCompra">
             <div class="form-group @if($errors->has('value')) has-error @endif">
               {!! Form::label('value', 'Valor', ['class' => 'form-label', 'title' => 'valor de compra']) !!}<span class="badge">(compra)</span>
               <div class="input-group">
@@ -63,16 +61,14 @@
               @endif
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" id="divDataCompra">
             <div class="form-group @if($errors->has('data')) has-error @endif">
               {!! Form::label('data', 'Data da Compra', ['class' => 'form-label']) !!}
               {!! Form::date('data', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
             </div>
           </div>
-          <div class="col-md-4">
-        @else
-          <div class="col-md-12">
         @endif
+        <div class="col-md-12">
           <div class="form-group @if($errors->has('price')) has-error @endif">
             {!! Form::label('price', 'Preço', ['class' => 'form-label', 'title' => 'Preço de venda']) !!}<span class="badge">(venda)</span>
             <div class="input-group">
@@ -210,32 +206,37 @@
 
 <script>
   $(document).ready(function() {
-    var value = $(".col-md-4")[0]; // value
-    var dt    = $(".col-md-4")[1]; // dt
-    var price = $(".col-md-4")[2]; // price
+    // var value = $(".col-md-4")[0]; // value
+    // var dt    = $(".col-md-4")[1]; // dt
+    // var price = $(".col-md-4")[2]; // price
 
-    $("#comprar").attr("checked", true);
-    $("#value").attr("required", true);
-    $("#dt").attr("required", true);
+    // $("#comprar").attr("checked", true);
+    // $("#value").attr("required", true);
+    // $("#dt").attr("required", true);
 
     $('#comprar').change(function() {
       var checkbox = $(this);
       if (checkbox.prop("checked")) {
-        $(".col-md-12").addClass("col-md-4");
-        $(".col-md-12").removeClass('col-md-12');
-        $(".row")[1].appendChild(value);
-        $(".row")[1].appendChild(dt);
-        $(".row")[1].appendChild(price);
-        $("#value").attr("required", true);
-        $("#dt").attr("required", true);
+        console.log('marcado');
+        $('#divValueCompra').removeAttr('style');
+
+        // $(".col-md-12").addClass("col-md-4");
+        // $(".col-md-12").removeClass('col-md-12');
+        // $(".row")[1].appendChild(value);
+        // $(".row")[1].appendChild(dt);
+        // $(".row")[1].appendChild(price);
+        // $("#value").attr("required", true);
+        // $("#dt").attr("required", true);
       } else {
-        $("#comprar").attr("checked", false);
-        $("#value").attr("required", false);
-        $("#dt").attr("required", false);
-        $(".col-md-4")[0].remove(); // value
-        $(".col-md-4")[0].remove(); // dt
-        $(".col-md-4").addClass("col-md-12");
-        $(".col-md-4").removeClass('col-md-4');
+        console.log('desmarcado');
+
+        // $("#comprar").attr("checked", false);
+        // $("#value").attr("required", false);
+        // $("#dt").attr("required", false);
+        // $(".col-md-4")[0].remove(); // value
+        // $(".col-md-4")[0].remove(); // dt
+        // $(".col-md-4").addClass("col-md-12");
+        // $(".col-md-4").removeClass('col-md-4');
       }
     })
   })

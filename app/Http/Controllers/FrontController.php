@@ -14,8 +14,8 @@ class FrontController extends Controller
 
     public function item($item)
     {
-        $product = \App\Models\Admin\Product::where('title', str_replace('-', ' ', $item))->first();
+        $product = \App\Models\Admin\Product::where('title', str_replace('_', ' ', $item))->first();
 
-        return view('welcome', compact('product'));
+        return view('shop-item', compact('product'));
     }
 }

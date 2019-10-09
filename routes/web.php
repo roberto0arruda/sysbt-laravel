@@ -2,7 +2,7 @@
 
 Route::redirect('/shop', '/', 301);
 Route::resource('/', 'FrontController');
-// Route::get('/{item}', 'FrontController@item');
+Route::get('/category/{item}', 'FrontController@item')->name('shop-item');
 
 Route::get('/client', 'ClientController')->middleware(['auth', 'verified'])->name('client');
 Auth::routes(['register' => true]);
@@ -14,4 +14,3 @@ $this->group(['middleware' => ['auth', 'isAdmin'], 'namespace' => 'Admin'], func
     $this->resource('admin/categories', 'CategoryController');
     $this->resource('admin/users', 'UsersController');
 });
-
