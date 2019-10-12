@@ -22,4 +22,6 @@ Route::prefix('v1')->namespace('API')->group(function () {
         'products' => 'ProductApiController',
         'orders'   => 'OrderApiController'
     ]);
+
+    Route::get('buys/{product_id}/with_sold', 'BuyApiController@getWithSold');
 });

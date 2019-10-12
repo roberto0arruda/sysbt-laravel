@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Product;
 use App\Http\Requests\Admin\ProductsStoreRequest;
 use App\Http\Requests\Admin\ProductsUpdateRequest;
 use App\Http\Controllers\Traits\FileUploadTrait;
+use App\Models\Admin\Customer;
+use App\Models\Admin\Product;
 
 class ProductController extends Controller
 {
@@ -22,7 +23,9 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        return view('admin.products.index', compact('products'));
+        $customers = Customer::all();
+
+        return view('admin.products.index', compact('products', 'customers'));
     }
 
     /**
@@ -74,9 +77,10 @@ class ProductController extends Controller
     {
         $title = 'Products-details';
 
-        $product = Product::find($id);
+        $product = Product::where('id', $id)->with('buys')->first();
+        $buysWithSale = $product->buys()->with('sale')->get();
 
-        return view('admin.products.show', compact('product', 'title'));
+        return view('admin.products.show', compact('product', 'buysWithSale', 'title'));
     }
 
     /**

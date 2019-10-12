@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('title')->unique();
             $table->decimal('price', 15, 2);
             $table->integer('stock')->default(0);
+            $table->integer('likes')->default(0);
             $table->text('description')->nullable();
             $table->string('photo1')->nullable();
             $table->string('photo2')->nullable();

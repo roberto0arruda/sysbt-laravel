@@ -206,37 +206,23 @@
 
 <script>
   $(document).ready(function() {
-    // var value = $(".col-md-4")[0]; // value
-    // var dt    = $(".col-md-4")[1]; // dt
-    // var price = $(".col-md-4")[2]; // price
-
-    // $("#comprar").attr("checked", true);
-    // $("#value").attr("required", true);
-    // $("#dt").attr("required", true);
+    $('#divValueCompra').attr('hidden', true);
+    $('#divDataCompra').attr('hidden', true);
 
     $('#comprar').change(function() {
       var checkbox = $(this);
       if (checkbox.prop("checked")) {
         console.log('marcado');
-        $('#divValueCompra').removeAttr('style');
-
-        // $(".col-md-12").addClass("col-md-4");
-        // $(".col-md-12").removeClass('col-md-12');
-        // $(".row")[1].appendChild(value);
-        // $(".row")[1].appendChild(dt);
-        // $(".row")[1].appendChild(price);
-        // $("#value").attr("required", true);
-        // $("#dt").attr("required", true);
+        $('#divValueCompra').removeAttr('hidden');
+        $('#divDataCompra').removeAttr('hidden');
+        $("#value").attr("required", true);
+        $("#dt").attr("required", true);
       } else {
         console.log('desmarcado');
-
-        // $("#comprar").attr("checked", false);
-        // $("#value").attr("required", false);
-        // $("#dt").attr("required", false);
-        // $(".col-md-4")[0].remove(); // value
-        // $(".col-md-4")[0].remove(); // dt
-        // $(".col-md-4").addClass("col-md-12");
-        // $(".col-md-4").removeClass('col-md-4');
+        $('#divValueCompra').attr('hidden', true);
+        $('#divDataCompra').attr('hidden', true);
+        $("#value").attr("required", false);
+        $("#dt").attr("required", false);
       }
     })
   })

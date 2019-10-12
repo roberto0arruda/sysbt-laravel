@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Payment;
+use App\Models\Admin\Buy;
 
-class FinanceController extends Controller
+class BuyApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,18 +14,6 @@ class FinanceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $payments = Payment::orderBy('dt_vnc')->with('product')->get();
-
-        return view('admin.finance.index', compact('payments'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -53,21 +41,6 @@ class FinanceController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $payment = Payment::find($id);
-        $payment->paid = true;
-        $payment->save();
-
-        return redirect()->back()->with('success', 'Recebido com sucesso');
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -88,5 +61,22 @@ class FinanceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Get list resource not sold.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getWithSold($product_id)
+    {
+        $buys = Buy::where('product_id', $product_id)->with('sale')->get()
+            // ->filter(function ($item) {
+            //     return empty($item->sale);
+            // })
+        ;
+
+        return response()->json($buys);
     }
 }

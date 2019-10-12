@@ -24,7 +24,7 @@
             <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
           </div>
           <div class="carousel-item">
-            <img class="d-block img-fluid" src="{{ url('images/vl-sistec-folder.png') }}" alt="Second slide">
+            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
           </div>
           <div class="carousel-item">
             <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">

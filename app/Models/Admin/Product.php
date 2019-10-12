@@ -13,6 +13,16 @@ class Product extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function buys()
+    {
+        return $this->hasMany(Buy::class);
+    }
+
+    public function sales()
+    {
+        return $this->hasManyThrough(Sale::class, Buy::class);
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);
