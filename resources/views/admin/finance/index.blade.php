@@ -25,7 +25,6 @@
                         <tr>
                             <th></th>
                             <th>Produto</th>
-                            <th>Parcela</th>
                             <th>DT Vencer</th>
                             <th>Valor</th>
                             <th>Recebeu em</th>
@@ -39,8 +38,7 @@
                             <td>
                                 <a href="{{route('products.show', $payment->product->id)}}" class="btn btn-xs btn-info"><i class="fa fa-mobile" aria-hidden="true"></i> {{$payment->product->title}}</a>
                             </td>
-                            <td>{{$payment->parc}}</td>
-                            <td>{{ date('d-m-Y', strtotime($payment->venciment) ) }}</td>
+                            <td>{{ date('d-m-Y', strtotime($payment->dt_vnc) ) }}</td>
                             <td>R$ {{ number_format($payment->value, 2)}}</td>
                             <td> @if ($payment->paid == 1) {{ date('d-m-Y H:m:s', strtotime($payment->updated_at)) }} @endif </td>
                             <td>
@@ -51,7 +49,7 @@
                                 @endif
                                 {{$payment->product->client}}
                             </td>
-                        </tr>                        
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

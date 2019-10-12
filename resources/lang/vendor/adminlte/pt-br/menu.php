@@ -17,6 +17,7 @@ return [
     'Important'          => 'Importante',
     'Warning'            => 'Aviso',
     'Information'        => 'Informação',
-    'management'         => 'Gestão',
-
+    'management'         => 'Administração',
+    'orders'             => 'Pedidos',
+    'finances'           => 'Finanças',
 ];

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Payment;
+use App\Models\Admin\Category;
 
-class FinanceController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class FinanceController extends Controller
      */
     public function index()
     {
-        $payments = Payment::orderBy('dt_vnc')->with('product')->get();
+        $categories = Category::all();
 
-        return view('admin.finance.index', compact('payments'));
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -60,11 +60,7 @@ class FinanceController extends Controller
      */
     public function edit($id)
     {
-        $payment = Payment::find($id);
-        $payment->paid = true;
-        $payment->save();
-
-        return redirect()->back()->with('success', 'Recebido com sucesso');
+        //
     }
 
     /**

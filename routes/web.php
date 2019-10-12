@@ -9,6 +9,8 @@ Auth::routes(['register' => true]);
 $this->group(['middleware' => ['auth', 'isAdmin'], 'namespace' => 'Admin'], function() {
     $this->get('admin', 'HomeController@index')->name('admin.home');
     $this->resource('admin/products', 'ProductController');
+    $this->resource('admin/buys', 'BuyController');
+    $this->resource('admin/sales', 'SaleController');
     $this->resource('admin/finances', 'FinanceController');
     $this->resource('admin/orders', 'OrderController');
     $this->resource('admin/categories', 'CategoryController');

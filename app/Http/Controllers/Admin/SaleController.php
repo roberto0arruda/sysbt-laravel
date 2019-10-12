@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Payment;
+use App\Models\Admin\Sale;
 
-class FinanceController extends Controller
+class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,7 @@ class FinanceController extends Controller
      */
     public function index()
     {
-        $payments = Payment::orderBy('dt_vnc')->with('product')->get();
-
-        return view('admin.finance.index', compact('payments'));
+        //
     }
 
     /**
@@ -38,43 +36,55 @@ class FinanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $sale = Sale::create($request->all());
+
+            if ($sale) {
+                $product = \App\Models\Admin\Product::find($request->product_id);
+                $product->stockDown();
+
+                // gerar faturas
+                $sale->newInvoices($request->all());
+            }
+
+            return redirect()->route('products.index');
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect()->route('products.index')->with('error');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Admin\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sale $sale)
     {
+
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Admin\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sale $sale)
     {
-        $payment = Payment::find($id);
-        $payment->paid = true;
-        $payment->save();
-
-        return redirect()->back()->with('success', 'Recebido com sucesso');
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Admin\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sale $sale)
     {
         //
     }
@@ -82,10 +92,10 @@ class FinanceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Admin\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sale $sale)
     {
         //
     }

@@ -89,7 +89,7 @@ return [
     |
     */
 
-    'right_sidebar' => true,
+    'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
@@ -168,11 +168,11 @@ return [
             'can'        => 'admin'
         ],
         [
-            'text'       => 'payments',
+            'text'       => 'finances',
             'url'        => 'admin/finances',
             'icon'       => 'fas fa-wallet',
             'icon_color' => 'aqua',
-            'active'     => ['admin/payments','admin/payments/*'],
+            'active'     => ['admin/finances','admin/finances/*'],
             'can'        => 'admin'
         ],
         ['header' => 'account_settings'],
