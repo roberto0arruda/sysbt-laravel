@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Buy;
 use App\Models\Admin\Payment;
+use App\Models\Admin\Sale;
 
 class FinanceController extends Controller
 {
@@ -15,9 +17,10 @@ class FinanceController extends Controller
      */
     public function index()
     {
-        $payments = Payment::orderBy('venciment')->with('product')->get();
+        $balances = Buy::with(['product','fullSale'])->get();
+        // dd($balances);
 
-        return view('admin.finance.index', compact('payments'));
+        return view('admin.finance.index', compact('balances'));
     }
 
     /**
@@ -63,7 +66,7 @@ class FinanceController extends Controller
         $payment = Payment::find($id);
         $payment->paid = true;
         $payment->save();
-        
+
         return redirect()->back()->with('success', 'Recebido com sucesso');
     }
 
@@ -76,7 +79,7 @@ class FinanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // 
+        //
     }
 
     /**

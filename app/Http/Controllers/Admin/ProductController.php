@@ -4,11 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductsStoreRequest;
+use App\Http\Requests\Admin\ProductsUpdateRequest;
+use App\Http\Controllers\Traits\FileUploadTrait;
+use App\Models\Admin\Customer;
 use App\Models\Admin\Product;
-use App\Http\Requests\Admin\StoreProductRequest;
 
 class ProductController extends Controller
 {
+    use FileUploadTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +23,9 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        return view('admin.product.index', compact('products'));
+        $customers = Customer::all();
+
+        return view('admin.products.index', compact('products', 'customers'));
     }
 
     /**
@@ -28,7 +35,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.create');
+        $title = 'Products-create';
+
+        return view('admin.products.create-edit', compact('title'));
     }
 
     /**
@@ -37,32 +46,25 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(ProductsStoreRequest $request)
     {
-        $dataForm = $request->except('_token');
-        
-        $product = Product::create($dataForm);
+        $request = $this->saveFiles($request, 'products');
+        $product = Product::create($request->all());
 
         if ($product) {
-            $response = ['success' => true, 'message' => 'compra efetuada com sucesso'];
-            if($request->hasFile('image') && $request->file('image')->isValid()) {
-                $name = $product->id.kebab_case($product->title);
-                $extension = $request->image->extension();
-                $fileName = "{$name}.{$extension}";
-                $product->image = $fileName;
+            // criar uma ordem com o valor de compra e a data
+            $data = $request->all();
+            if ($request->comprar) {
+                $data['dt_vnc'] = $data['dt_bxa'] = $request->input('data');
+                $product->payments()->create($data);
+                $product->stock += 1;
                 $product->save();
-                $upload = $request->image->storeAs('products', $fileName);
-                if(!$upload)
-                    $response['message'] .= ' - Falha ao salvar imagem';
-            }            
+            }
+            return redirect()->route('products.index')
+                ->with('success', "{$product->title} - cadastrado com sucesso");
         } else {
-            $response = ['success' => false, 'message' => 'Falha ao comprar.'];
+            return redirect()->back()->with('error', 'Falha ao cadastrar');
         }
-        
-        if($response['success'])
-            return redirect()->route('products.index')->with('success', $response['message']);
-        
-        return redirect()->back()->with('error', $response['message']);
     }
 
     /**
@@ -73,9 +75,12 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::where('id', $id)->with('payments')->first();
+        $title = 'Products-details';
 
-        return view('admin.product.show', compact('product'));
+        $product = Product::where('id', $id)->with('buys')->first();
+        $buysWithSale = $product->buys()->with('sale')->get();
+
+        return view('admin.products.show', compact('product', 'buysWithSale', 'title'));
     }
 
     /**
@@ -86,9 +91,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+		$title = 'Products-edit';
+
         $product = Product::find($id);
 
-        return view('admin.product.edit', compact('product'));
+        return view('admin.products.create-edit', compact('title','product'));
     }
 
     /**
@@ -98,16 +105,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductsUpdateRequest $request, $id)
     {
-        $product = Product::find($id);
+        $request = $this->saveFiles($request, 'products');
+        $product = Product::findOrFail($id);
+        $update = $product->update($request->all());
 
-        $response = $product->sale($request->all());
-
-        if($response['success'])
-            return redirect()->route('products.index')->with('success', $response['message']);
-
-        return redirect()->back()->with('error', $response['message']);
+        if($update) {
+            return redirect()->route('products.index')->with('success', "{$product->title} - atualizado com sucesso");
+        } else {
+            return redirect()->back()->with('error', 'Falha ao atualizar');
+        }
     }
 
     /**
@@ -118,6 +126,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd('excluir produto: ', $id);
     }
 }

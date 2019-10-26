@@ -10,9 +10,11 @@
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
-        "jeroennoten/laravel-adminlte": "^1.24",
+        "intervention/image": "^2.5",
+        "jeroennoten/laravel-adminlte": "^1.25",
         "laravel/framework": "5.7.*",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "laravelcollective/html": "^5.4.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -58,6 +60,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "compile": [
+            "chmod -R 777 /storage"
         ]
     }
 }
