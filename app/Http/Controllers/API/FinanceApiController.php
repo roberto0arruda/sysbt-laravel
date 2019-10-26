@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Buy;
-use App\Models\Admin\Payment;
-use App\Models\Admin\Sale;
 
-class FinanceController extends Controller
+class FinanceApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,20 +15,9 @@ class FinanceController extends Controller
      */
     public function index()
     {
-        $balances = Buy::with(['product','fullSale'])->get();
-        // dd($balances);
+        $balances = Buy::with(['product','sale'])->get();
 
-        return view('admin.finance.index', compact('balances'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($balances);
     }
 
     /**
@@ -53,21 +40,6 @@ class FinanceController extends Controller
     public function show($id)
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $payment = Payment::find($id);
-        $payment->paid = true;
-        $payment->save();
-
-        return redirect()->back()->with('success', 'Recebido com sucesso');
     }
 
     /**

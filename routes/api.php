@@ -20,7 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('v1')->namespace('API')->group(function () {
     Route::apiResources([
         'products' => 'ProductApiController',
-        'orders'   => 'OrderApiController'
+        'orders'   => 'OrderApiController',
+        'finances' => 'FinanceApiController'
     ]);
 
     Route::get('buys/{product_id}/with_sold', 'BuyApiController@getWithSold');
