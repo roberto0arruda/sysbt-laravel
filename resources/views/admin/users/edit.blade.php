@@ -2,8 +2,8 @@
 
 @section('content')
     <h3 class="page-title">@lang('quickadmin.users.title')</h3>
-    
-    {!! Form::model($user, ['method' => 'PUT', 'route' => ['admin.users.update', $user->id]]) !!}
+
+    {!! Form::model($user, ['method' => 'PUT', 'route' => ['users.update', $user->id]]) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('role_id', trans('quickadmin.users.fields.role').'*', ['class' => 'control-label']) !!}
-                    {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control select2', 'required' => '']) !!}
+                    {{-- {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control select2', 'required' => '']) !!} --}}
                     <p class="help-block"></p>
                     @if($errors->has('role_id'))
                         <p class="help-block">
@@ -59,7 +59,7 @@
                     @endif
                 </div>
             </div>
-            
+
         </div>
     </div>
 
