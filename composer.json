@@ -61,8 +61,10 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "compile": [
-            "chmod -R 777 /storage"
+        "post-install-cmd": [
+            "php artisan clear-compiled",
+            "php artisan optimize",
+            "chmod -R 777 storage"
         ]
     }
 }
