@@ -23,9 +23,12 @@ class Sale extends Model
     {
         if (isset($data['e'])) {
             $valorParc = ($data['value'] - $data['e']) / $data['x'];
+        } else {
+            $data['x'] = '1';
         }
 
         $i = 0;
+        $days = 30;
         while ($i <= (int) $data['x']) {
             if ($i == 0) {
                 $entrada = $this->invoices()->create([
@@ -38,8 +41,9 @@ class Sale extends Model
                 $this->invoices()->create([
                     'sale_id' => $this->id,
                     'value'      => $valorParc,
-                    'date_vnc'  => date('Y-m-d', strtotime('+30 days', strtotime($data['date']))),
+                    'date_vnc'  => date('Y-m-d', strtotime('+'.$days.' days', strtotime($data['date']))),
                 ]);
+                $days += 30;
             }
             $i++;
         }
@@ -53,5 +57,15 @@ class Sale extends Model
     public function invoices()
     {
         return $this->hasMany(Invoice::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function buy()
+    {
+        return $this->belongsTo(Buy::class);
     }
 }

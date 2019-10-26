@@ -26,7 +26,9 @@ class HomeController extends Controller
     public function index()
     {
         if (Gate::allows('admin')) {
-            return view('admin.dashboard');
+            $balances = \App\Models\Admin\Buy::with(['product','fullSale'])->get();
+            // dd($balances);
+            return view('admin.dashboard', compact('balances'));
         } else {
             return redirect()->route('client');
         }

@@ -14,6 +14,16 @@ class Buy extends Model
         return $this->hasOne(Sale::class);
     }
 
+    public function fullSale()
+    {
+        return $this->sale()->with(['customer','invoices']);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
     public function getValueAttribute($value)
     {
         return 'R$ '.number_format($value, 2, ',', '.');

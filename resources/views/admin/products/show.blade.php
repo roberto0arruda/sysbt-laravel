@@ -25,11 +25,10 @@
       <!-- Table row -->
       <div class="row">
         <div class="col-xs-12 table-responsive">
-          <table class="table table-striped">
+          <table class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th colspan="4" class="text-center">Compras</th>
-                <th><=></th>
                 <th colspan="3" class="text-center">Vendas</th>
               </tr>
               <tr>
@@ -37,7 +36,6 @@
                 <th>Data</th>
                 <th>Info</th>
                 <th>Subtotal</th>
-                <th><=></th>
                 <th>Data</th>
                 <th>Cliente</th>
                 <th>Subtotal</th>
@@ -50,10 +48,9 @@
                   <td>{{ $item->date }}</td>
                   <td>{{ $product->title.' - '.$item->info }}</td>
                   <td>{{ $item->value }}</td>
-                  <th><=></th>
                   @if ( isset($item->sale->id) )
-                    <td>{{ $item->sale->id }}</td>
                     <td>{{ $item->sale->date }}</td>
+                    <td>{{ $item->sale->customer_id }}</td>
                     <td>{{ $item->sale->value }}</td>
                   @else
                     <td colspan="3" class="text-center">Botao de venda</td>
