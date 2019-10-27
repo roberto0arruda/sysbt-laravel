@@ -13,10 +13,6 @@ trait FileUploadTrait
     public function saveFiles(Request $request, $path)
     {
         $uploadPath = storage_path('app/public')."/{$path}";
-        $thumbPath = public_path(env('UPLOAD_PATH').'images/thumb');
-        if (! file_exists($thumbPath)) {
-            mkdir($thumbPath, 0775);
-        }
 
         $finalRequest = $request;
 
@@ -27,8 +23,6 @@ trait FileUploadTrait
                     $fileName = time() . '-' . $request->file($key)->getClientOriginalName();
                     $file     = $request->file($key);
                     $image    = Image::make($file);
-
-                    Image::make($file)->resize(50, 50)->save($thumbPath . '/' . $fileName);
 
                     $width  = $image->width();
                     $height = $image->height();
