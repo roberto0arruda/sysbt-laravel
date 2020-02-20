@@ -12,7 +12,8 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^1.0",
-        "mazedlx/ignition-migrations": "^0.0.3"
+        "mazedlx/ignition-migrations": "^0.0.3",
+        "tymon/jwt-auth": "1.0.*"
     },
     "require-dev": {
         "astrotomic/ignition-stackoverflow": "^1.4",
