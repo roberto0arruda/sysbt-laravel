@@ -12,4 +12,11 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    // .js('resources/js/laravel-echo-setup.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css')
+    // .browserSync(
+    //     {
+    //         open: false,
+    //         proxy: '172.23.0.6' // replace with your web server container
+    //     })
+    ;

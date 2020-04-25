@@ -1,4 +1,3 @@
-
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
@@ -13,20 +12,5 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
-// startbootstrap-freelancer
-@import '~startbootstrap-freelancer/css/freelancer';
-
-body {
-  padding-top: 56px;
-}
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
-.navbar-custom {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  background-color: rgba(0,0,0,.7);
-}
+// arruda-portfolio-template
+@import '~arruda-portfolio-template/scss/main';
