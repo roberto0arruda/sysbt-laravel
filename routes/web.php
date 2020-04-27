@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -14,7 +16,7 @@ Route::get('/client', 'ClientController')->middleware(['auth'])->name('client');
 Auth::routes(['register' => true, 'verify' => true]);
 
 Route::group(['middleware' => ['auth', 'isAdmin', 'verified'], 'namespace' => 'Admin'], function () {
-    Route::get('/admin', 'HomeController@index')->name('admin.home');
+    Route::get('/admin/dashboard', 'HomeController@index')->name('admin.home');
     Route::resource('admin/products', 'ProductController');
     //     $this->resource('admin/buys', 'BuyController');
     //     $this->resource('admin/sales', 'SaleController');

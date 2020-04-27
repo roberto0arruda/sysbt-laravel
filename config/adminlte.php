@@ -135,14 +135,14 @@ return [
         ['header' => 'main_navigation'],
         [
             'text'        => 'Dashboard',
-            'url'         => 'admin',
+            'url'         => 'admin/dashboard',
             'icon'        => 'fas fa-tachometer-alt',
             'label'       => 4,
             'label_color' => 'success',
         ],
         [
             'text'   => 'shop',
-            'url'    => '/',
+            'url'    => '/shop',
             'icon'    => 'fas fa-store',
             'target' => '_blank'
         ],
@@ -156,7 +156,7 @@ return [
             'icon'        => 'fas fa-barcode',
             'label'       => 4,
             'label_color' => 'success',
-            'active'      => ['admin/products','admin/products/*'],
+            'active'      => ['admin/products', 'admin/products/*'],
             'can'         => 'admin'
         ],
         [
@@ -164,7 +164,7 @@ return [
             'url'        => 'admin/orders',
             'icon'       => 'fas fa-inbox',
             'icon_color' => 'yellow',
-            'active'     => ['admin/orders','admin/orders/*'],
+            'active'     => ['admin/orders', 'admin/orders/*'],
             'can'        => 'admin'
         ],
         [
@@ -172,7 +172,7 @@ return [
             'url'        => 'admin/finances',
             'icon'       => 'fas fa-wallet',
             'icon_color' => 'aqua',
-            'active'     => ['admin/finances','admin/finances/*'],
+            'active'     => ['admin/finances', 'admin/finances/*'],
             'can'        => 'admin'
         ],
         ['header' => 'account_settings'],
