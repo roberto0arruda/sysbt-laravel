@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.categories.create-or-edit');
     }
 
     /**
@@ -76,7 +76,7 @@ class CategoryController extends Controller
         if (!$category)
             return redirect()->back();
 
-        return view('admin.categories.edit', compact('category'));
+        return view('admin.categories.create-or-edit', compact('category'));
     }
 
     /**
