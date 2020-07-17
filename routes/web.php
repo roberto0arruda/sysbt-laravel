@@ -24,4 +24,7 @@ Route::group(['middleware' => ['auth', 'isAdmin', 'verified'], 'namespace' => 'A
     //     $this->resource('admin/orders', 'OrderController');
     Route::resource('admin/categories', 'CategoryController');
     //     $this->resource('admin/users', 'UsersController');
+
+    Route::any('admin/planos/search', 'PlanSearchController')->name('plans.search');
+    Route::resource('admin/planos', 'PlanController')->names('plans')->parameters(['planos' => 'plan']);
 });

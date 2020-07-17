@@ -235,6 +235,13 @@ return [
             'can'   => 'admin'
         ],
         [
+            'text' => 'Planos',
+            'url'  => 'admin/planos',
+            'icon' => 'fas fa-list-alt',
+            'active'      => ['admin/planos/*'],
+            // 'can'  =>  'plans',
+        ],
+        [
             'text'        => 'products',
             'url'         => 'admin/products',
             'icon'        => 'fas fa-barcode',

@@ -14,7 +14,6 @@ class UsersTableSeeder extends Seeder
     {
         $items = [
             [
-                'id' => 1,
                 'name' => 'Roberto Arruda',
                 'email' => 'roberto0arruda@hotmail.com',
                 'password' => '$2y$10$NLQe901.efYEZb8g2CxTvurH35rlrMYSUUQrGPk3hH.UjfaD1.aOm',
