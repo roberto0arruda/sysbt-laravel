@@ -14,3 +14,4 @@ yarn-error.log
 *.log
 /public/css/**
 /public/js/**
+/public/assets/**
