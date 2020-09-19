@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 
-class AuthApiController extends Controller
+class AuthController extends Controller
 {
     /**
      * Create a new AuthApiController instance.

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Buy;
 
-class BuyApiController extends Controller
+class FinanceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class BuyApiController extends Controller
      */
     public function index()
     {
-        //
+        $balances = Buy::with(['product','sale'])->get();
+
+        return response()->json($balances);
     }
 
     /**
@@ -61,22 +63,5 @@ class BuyApiController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Get list resource not sold.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getWithSold($product_id)
-    {
-        $buys = Buy::where('product_id', $product_id)->with('sale')->get()
-            // ->filter(function ($item) {
-            //     return empty($item->sale);
-            // })
-        ;
-
-        return response()->json($buys);
     }
 }

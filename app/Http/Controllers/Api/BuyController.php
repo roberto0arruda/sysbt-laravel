@@ -1,21 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Product;
+use App\Models\Admin\Buy;
 
-class ProductApiController extends Controller
+class BuyController extends Controller
 {
-
-    private $products;
-
-    public function __construct(Product $product)
-    {
-        $this->products = $product;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -34,18 +26,7 @@ class ProductApiController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
-        try {
-            $this->products::create($request->all());
-
-            return response()->json(['msg' => 'Criado com sucesso!'], 201);
-        } catch (\Exception $e) {
-            if ( config('app.debug') ) {
-                return response()->json(['msg' => $e->getMessage()]);
-            }
-
-            return response()->json(['msg' => 'Erro ao criar produto']);
-        }
+        //
     }
 
     /**
@@ -80,5 +61,22 @@ class ProductApiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Get list resource not sold.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getWithSold($product_id)
+    {
+        $buys = Buy::where('product_id', $product_id)->with('sale')->get()
+            // ->filter(function ($item) {
+            //     return empty($item->sale);
+            // })
+        ;
+
+        return response()->json($buys);
     }
 }

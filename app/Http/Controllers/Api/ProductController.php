@@ -1,12 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Product;
 
-class OrderApiController extends Controller
+class ProductController extends Controller
 {
+
+    private $products;
+
+    public function __construct(Product $product)
+    {
+        $this->products = $product;
+    }
+
     /**
      * Display a listing of the resource.
      *

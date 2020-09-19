@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Buy;
 
-class FinanceApiController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class FinanceApiController extends Controller
      */
     public function index()
     {
-        $balances = Buy::with(['product','sale'])->get();
-
-        return response()->json($balances);
+        //
     }
 
     /**
@@ -28,7 +25,18 @@ class FinanceApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
+        try {
+            $this->products::create($request->all());
+
+            return response()->json(['msg' => 'Criado com sucesso!'], 201);
+        } catch (\Exception $e) {
+            if ( config('app.debug') ) {
+                return response()->json(['msg' => $e->getMessage()]);
+            }
+
+            return response()->json(['msg' => 'Erro ao criar produto']);
+        }
     }
 
     /**

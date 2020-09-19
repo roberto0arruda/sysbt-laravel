@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1')->namespace('API')->group(function () {
+Route::prefix('v1')->namespace('Api')->group(function () {
 
     Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
-        Route::post('login', 'AuthApiController@login');
-        Route::post('logout', 'AuthApiController@logout');
-        Route::post('refresh', 'AuthApiController@refresh');
-        Route::post('me', 'AuthApiController@me');
+        Route::post('login', 'AuthController@login');
+        Route::post('logout', 'AuthController@logout');
+        Route::post('refresh', 'AuthController@refresh');
+        Route::post('me', 'AuthController@me');
     });
 
     Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -28,10 +28,10 @@ Route::prefix('v1')->namespace('API')->group(function () {
     });
 
     Route::apiResources([
-        'products' => 'ProductApiController',
-        'orders'   => 'OrderApiController',
-        'finances' => 'FinanceApiController'
+        'products' => 'ProductController',
+        'orders'   => 'OrderController',
+        'finances' => 'FinanceController'
     ]);
 
-    Route::get('buys/{product_id}/with_sold', 'BuyApiController@getWithSold');
+    Route::get('buys/{product_id}/with_sold', 'BuyController@getWithSold');
 });
