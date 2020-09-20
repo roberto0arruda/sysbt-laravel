@@ -8,39 +8,28 @@ use App\Models\Admin\Product;
 
 class ProductController extends Controller
 {
-
-    private $products;
-
-    public function __construct(Product $product)
-    {
-        $this->products = $product;
-    }
-
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Product[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return Product::all();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        return $request->all();
         try {
-            $this->products::create($request->all());
-
-            return response()->json(['msg' => 'Criado com sucesso!'], 201);
+            return Product::create($request->all())->refresh();
         } catch (\Exception $e) {
-            if ( config('app.debug') ) {
+            if (config('app.debug')) {
                 return response()->json(['msg' => $e->getMessage()]);
             }
 
@@ -51,34 +40,44 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return Product|\Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);
+
+        return $product ?? response()->json(['message' => 'Not Found'], 404);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Product $product
+     * @return Product
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->update($request->all());
+
+        return $product;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            Product::findOrFail($id)->delete();
+
+            return response()->json(['message' => 'Deleted Successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
     }
 }
