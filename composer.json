@@ -12,7 +12,7 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
-        "jeroennoten/laravel-adminlte": "^3.2",
+        "jeroennoten/laravel-adminlte": "^3.5",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "tymon/jwt-auth": "1.0.*"

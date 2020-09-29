@@ -161,7 +161,7 @@ return [
     | Here we can modify the url settings of the admin panel.
     |
     | For more detailed instructions you can look here:
-    | https://github.com/jeroennoten/Laravel-AdmitruenLTE/#69-urls
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#69-urls
     |
     */
 
@@ -443,9 +443,8 @@ return [
             'files' => [
                 [
                     'type' => 'css',
-                    'asset' => true,
-                    'location' => '/css/pace.css',
-                    // 'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-flash.min.css',
                 ],
                 [
                     'type' => 'js',
