@@ -18,8 +18,8 @@ Auth::routes(['register' => true, 'verify' => true]);
 Route::group(['middleware' => ['auth', 'isAdmin', 'verified'], 'namespace' => 'Admin'], function () {
     Route::get('/admin/dashboard', 'HomeController@index')->name('admin.home');
     Route::resource('admin/products', 'ProductController');
-    //     $this->resource('admin/buys', 'BuyController');
-    //     $this->resource('admin/sales', 'SaleController');
+    Route::resource('admin/buys', 'BuyController');
+    Route::resource('admin/sales', 'SaleController');
     //     $this->resource('admin/finances', 'FinanceController');
     //     $this->resource('admin/orders', 'OrderController');
     Route::resource('admin/categories', 'CategoryController');

@@ -3,26 +3,36 @@
 @section('title', 'Produtos')
 
 @section('content_header')
-  <a href="{{ route('admin.home') }}" class="btn btn-warning" title="Voltar">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-  </a>
-  <a href="{{ route('products.create') }}" class="btn btn-info" title="Novo">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-  </a>
-
-  <ol class="breadcrumb">
-    <li><a href="">Dashboard</a></li>
-    <li><a href="">Produtos</a></li>
-  </ol>
+  <div class="row mb-2">
+    <div class="col-sm-6">
+      <a href="{{ route('admin.home') }}" class="btn btn-warning" title="Voltar">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </a>
+      <a href="{{ route('products.create') }}" class="btn btn-info" title="Novo">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item">
+          <a href="{{ route('admin.home') }}">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+          </a>
+        </li>
+        <li class="breadcrumb-item active">Produtos</li>
+      </ol>
+    </div>
+  </div>
 @stop
 
 @section('content')
-
-<div class="panel panel-default">
-  <div class="panel-heading text-center"><h3 class="panel-title">Produtos</h3></div>
-  <div class="panel-body">
-    <table id="table_id" class="table table-striped table-hover">
-      <thead>
+  <div class="card">
+    <div class="card-header text-center">
+      <h3>Produtos</h3>
+    </div>
+    <div class="card-body">
+      <table id="table_id" class="table table-striped table-hover">
+        <thead>
         <tr>
           <th>#</th>
           {{-- <th>Imagem</th> --}}
@@ -31,8 +41,8 @@
           <th>estoque</th>
           <th>Ações</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         @foreach ($products as $product)
           <tr title="{{ $product->description }}">
             <td>{{ $product->id }}</td>
@@ -49,166 +59,173 @@
               </a>
               <!-- Button trigger modal newBuy -->
               <a class="tip btn btn-success btn-xs" href="#" role="button"
-                data-product="{{ $product }}"data-toggle="modal" data-target="#newBuy"
-                title="Comprar Produto" id="comprar">
+                 data-product="{{ $product }}" data-toggle="modal" data-target="#newBuy"
+                 title="Comprar Produto" id="comprar">
                 <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
               </a>
               <!-- Button trigger modal newSale -->
               @if ($product->stock > 0)
                 <a class="tip btn btn-danger btn-xs" href="#" role="button"
-                  data-product="{{ $product }}"data-toggle="modal" data-target="#newSale"
-                  data-customers="{{ $customers }}"
-                  title="Vender Produto" id="vender">
+                   data-product="{{ $product }}" data-toggle="modal" data-target="#newSale"
+                   data-customers="{{ $customers }}"
+                   title="Vender Produto" id="vender">
                   <i class="fas fa-dollar-sign"></i>
                 </a>
               @endif
             </td>
           </tr>
         @endforeach
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- Modal Buy -->
-<div class="modal fade" id="newBuy" tabindex="-1" role="dialog" aria-labelledby="newBuyLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="newBuyLabel">Nova Compra</h4>
-      </div>
-      {!! Form::open(['route' => 'buys.store']) !!}
-      <div class="modal-body">
-        <div class="form-group">
-          {!! Form::label('value', 'Valor', ['class' => 'form-label']) !!}
-          <div class="input-group">
-            <span class="input-group-addon">R$</span>
-            {!! Form::number('value', null, ['class'=>'form-control', 'required' ,'placeholder' => 'valor compra do Produto', 'min' => '1']) !!}
-            <span class="input-group-addon">,00</span>
-          </div>
-        </div>
-        <div class="form-group">
-          <i class="fa fa-calendar-alt" aria-hidden="true"></i>
-          {!! Form::label('date', 'Data', ['class' => 'form-label']) !!}
-          {!! Form::date('date', now(), ['class' => 'form-control data', 'required']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::label('value', 'Info', ['class' => 'form-label']) !!}
-            {!! Form::textarea('info', null, ['class' => 'form-control', 'required', 'rows' => '4']) !!}
-        </div>
-      </div>
-      <div class="modal-footer">
-        {!! Form::button('Fechar',['class' => 'btn btn-default', 'data-dismiss' => 'modal']) !!}
-        {!! Form::submit('Comprar',['class' => 'btn btn-primary']) !!}
-      </div>
-      {!! Form::close() !!}
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
 
-<!-- Modal Buy -->
-<div class="modal fade" id="newSale" tabindex="-1" role="dialog" aria-labelledby="newSaleLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="newSaleLabel">Vender</h4>
-      </div>
-      {!! Form::open(['route' => 'sales.store']) !!}
-      <div class="modal-body">
-        <div class="form-group">
-          <select name="buy_id" id="buy_id" class="form-control"></select>
+  <!-- Modal Buy -->
+  <div class="modal fade" id="newBuy" tabindex="-1" role="dialog" aria-labelledby="newBuyLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="newBuyLabel">Nova Compra</h4>
         </div>
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-            <select name="customer_id" id="customer" class="form-control" required>
-              <option value="">Selecione um cliente</option>
-              @foreach ($customers as $customer)
-                <option value="{{ $customer->id }}">{{ $customer->nickname }}</option>
-              @endforeach
-            </select>
-            <span class="input-group-addon"><i class="fa fa-plus" aria-hidden="true"></i></span>
+        <form action="{{ route('buys.store') }}" method="POST">
+          @csrf
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="value">Valor</label>
+              <div class="input-group">
+                <span class="input-group-addon">R$</span>
+                <input type="number" id="value" name="value" class="form-control" placeholder="valor compra do Produto"
+                       min="1">
+                <span class="input-group-addon">,00</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <i class="fa fa-calendar-alt" aria-hidden="true"></i>
+              <label for="date">Data</label>
+              <input type="date" id="date" name="date" value="{{now()}}" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="info">Info</label>
+              <textearea id="info" name="info" row="4"></textearea>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          {!! Form::label('value', 'Valor', ['class' => 'form-label']) !!}
-          <div class="input-group">
-            <span class="input-group-addon">R$</span>
-            {!! Form::number('value', null, ['class'=>'form-control', 'required', 'placeholder' => 'valor de venda do Produto']) !!}
-            <span class="input-group-addon">,00</span>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Comprar</button>
           </div>
-        </div>
-        <div class="form-group">
-          <i class="fa fa-calendar-alt" aria-hidden="true"></i>
-          {!! Form::label('date', 'Data', ['class' => 'form-label']) !!}
-          {!! Form::date('date', now(), ['class' => 'form-control data']) !!}
-        </div>
-        <div class="form-group text-center" id="condPag">
-          {!! Form::label('fPag', 'À vista', ['class' => 'form-label', 'style' => 'margin-top: 30px']) !!}
-          <!-- Rounded switch -->
-          <label class="switch">
-            <input type="checkbox" id="fPag">
-            <span class="slider round"></span>
-          </label>
-          {!! Form::label('fPag', 'Parcelado', ['class' => 'form-label', 'style' => 'margin-top: 30px']) !!}
-        </div>
+        </form>
       </div>
-      <div class="modal-footer">
-        {!! Form::button('Fechar',['class' => 'btn btn-default', 'data-dismiss' => 'modal']) !!}
-        {!! Form::submit('Vender',['class' => 'btn btn-primary']) !!}
-      </div>
-      {!! Form::close() !!}
     </div>
   </div>
-</div>
+
+  <!-- Modal Buy -->
+  <div class="modal fade" id="newSale" tabindex="-1" role="dialog" aria-labelledby="newSaleLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="newSaleLabel">Vender</h4>
+        </div>
+        <form action="{{ route('sales.store') }}" method="POST">
+          @csrf
+          <div class="modal-body">
+            <div class="form-group">
+              <select name="buy_id" id="buy_id" class="form-control"></select>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <select name="customer_id" id="customer" class="form-control" required>
+                  <option value="">Selecione um cliente</option>
+                  @foreach ($customers as $customer)
+                    <option value="{{ $customer->id }}">{{ $customer->nickname }}</option>
+                  @endforeach
+                </select>
+                <span class="input-group-addon"><i class="fa fa-plus" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="value">Valor</label>
+              <div class="input-group">
+                <span class="input-group-addon">R$</span>
+                <input type="number" id="value" name="value" class="form-control"
+                       placeholder="valor de venda do Produto">
+                <span class="input-group-addon">,00</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <i class="fa fa-calendar-alt" aria-hidden="true"></i>
+              <label for="date">Data</label>
+              <input type="date" id="date" name="date" value="{{ now() }}" class="form-control data">
+            </div>
+            <div class="form-group text-center" id="condPag">
+              <label for="fpag" style="margin-top: 30px">À Vista</label>
+              <!-- Rounded switch -->
+              <label class="switch">
+                <input type="checkbox" id="fPag">
+                <span class="slider round"></span>
+              </label>
+              <label for="fpag" style="margin-top: 30px">Parcelado</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Vender</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 @stop
 
 @section('js')
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
-  $(document).ready( function () {
-    $('#table_id').DataTable({
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json'
-      }
-    });
-  } );
-
-  $(document).on("click", "#comprar", function () {
-    var product = $(this).data('product');
-    $("#newBuyLabel").text("Nova Compra - " + product.title);
-    $(".modal-body").append(`<input type="hidden" name="product_id" value="${product.id}"></input>`);
-  });
-
-  $(document).on("click", "#vender", function () {
-    var product = $(this).data('product');
-    var customers = $(this).data('customers');
-    $("#newSaleLabel").text("Vender - " + product.title);
-    $(".modal-body").append(`<input type="hidden" name="product_id" value="${product.id}"></input>`);
-
-    axios.get(`/api/v1/buys/${product.id}/with_sold`)
-      .then(function (response) {
-        $("#buy_id").empty();
-        console.log(response.data);
-        response.data.map((data) => {
-          if (data.sale == null) {
-            $("#buy_id").append(`<option value="${data.id}">${data.info}</option>`);
-          }
-        });
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#table_id').DataTable({
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json'
+        }
       });
-  });
+    });
 
-  $('#fPag').change(function() {
-    var checkbox = $(this);
-    if (checkbox.prop("checked")) {
-      console.log('parcelado');
-      $('#condPag').append(`
+    $(document).on("click", "#comprar", function () {
+      var product = $(this).data('product');
+      $("#newBuyLabel").text("Nova Compra - " + product.title);
+      $(".modal-body").append(`<input type="hidden" name="product_id" value="${product.id}"></input>`);
+    });
+
+    $(document).on("click", "#vender", function () {
+      var product = $(this).data('product');
+      var customers = $(this).data('customers');
+      $("#newSaleLabel").text("Vender - " + product.title);
+      $(".modal-body").append(`<input type="hidden" name="product_id" value="${product.id}"></input>`);
+
+      axios.get(`/api/v1/buys/${product.id}/with_sold`)
+        .then(function (response) {
+          $("#buy_id").empty();
+          console.log(response.data);
+          response.data.map((data) => {
+            if (data.sale == null) {
+              $("#buy_id").append(`<option value="${data.id}">${data.info}</option>`);
+            }
+          });
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
+    });
+
+    $('#fPag').change(function () {
+      var checkbox = $(this);
+      if (checkbox.prop("checked")) {
+        console.log('parcelado');
+        $('#condPag').append(`
         <div class="row" id="row">
           <div class="col-xs-5">
             <label>Valor Entrada?</label>
@@ -229,12 +246,12 @@
         </div>
       `);
 
-    } else {
-      console.log('a vista');
-      $('#row').remove();
-    }
-  });
-</script>
+      } else {
+        console.log('a vista');
+        $('#row').remove();
+      }
+    });
+  </script>
 @stop
 
 @section('css')
