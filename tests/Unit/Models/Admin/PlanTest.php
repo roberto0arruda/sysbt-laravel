@@ -1,10 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models\Admin;
 
-use Tests\TestCase;
 use App\Models\Admin\Plan;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class PlanTest extends TestCase
 {

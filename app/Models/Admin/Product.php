@@ -2,16 +2,21 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Uuid;
+
+    public $incrementing = false;
 
     protected $fillable = ['title', 'price', 'description', 'stock', 'photo1', 'photo2', 'photo3'];
 
     protected $dates = ['deleted_at'];
+
+    protected $keyType = 'string';
 
     public function orders()
     {

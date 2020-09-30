@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Models\Admin;
 
 use App\Models\Admin\Product;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class ModelProductTest extends TestCase
+class ProductTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -41,15 +41,29 @@ class ModelProductTest extends TestCase
 
     public function testCheckIfCreatingProductIsWorking()
     {
-        $product = factory(Product::class)->create([
+        $product = Product::create([
             'title' => 'test',
-            'description' => 'test_description',
             'price' => 10
-        ])->first();
+        ]);
+        $product->refresh();
 
+        $this->assertEquals(36, strlen($product->id));
         $this->assertEquals('test', $product->title);
-        $this->assertEquals('test_description', $product->description);
         $this->assertEquals(10, $product->price);
+        $this->assertEquals('0', $product->stock);
+        $this->assertEquals('0', $product->likes);
+        $this->assertNull($product->description);
+        $this->assertNull($product->photo1);
+        $this->assertNull($product->photo2);
+        $this->assertNull($product->photo3);
+        $this->assertNull($product->deleted_at);
+
+        $product = Product::create([
+            'title' => 'test2',
+            'description' => 'description_test',
+            'price' => 10
+        ]);
+        $this->assertEquals('description_test', $product->description);
     }
 
     public function testCheckIfUpdateProductIsWorking()
@@ -73,7 +87,7 @@ class ModelProductTest extends TestCase
         }
     }
 
-    /** @test
+    /**
      * @throws Exception
      */
     public function testCheckIfDeletingProductIsWorking()
@@ -81,7 +95,9 @@ class ModelProductTest extends TestCase
         /** @var Product $product */
         $product = factory(Product::class)->create();
         $product->delete();
-
         $this->assertNull(Product::find($product->id));
+
+        $product->restore();
+        $this->assertNotNull(Product::find($product->id));
     }
 }

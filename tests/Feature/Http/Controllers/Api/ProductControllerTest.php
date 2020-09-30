@@ -25,7 +25,7 @@ class ProductControllerTest extends TestCase
     {
         $product = factory(Product::class)->create();
 
-        $response = $this->get('/api/v1/products/1');
+        $response = $this->get("/api/v1/products/{$product->id}");
         $response
             ->assertStatus(200)
             ->assertJson($product->toArray());
@@ -98,7 +98,7 @@ class ProductControllerTest extends TestCase
         $response
             ->assertStatus(404)
             ->assertJsonFragment([
-                'message' => 'No query results for model [App\Models\Admin\Product] 1'
+                'message' => "No query results for model [App\Models\Admin\Product] {$product->id}"
             ]);
     }
 }
