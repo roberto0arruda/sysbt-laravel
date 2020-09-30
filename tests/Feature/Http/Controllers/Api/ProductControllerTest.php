@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
-
 use App\Models\Admin\Product;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -15,7 +14,7 @@ class ProductControllerTest extends TestCase
     {
         factory(Product::class, 10)->create();
 
-        $response = $this->get(route('products.index'));
+        $response = $this->get('/api/v1/products');
 
         $response
             ->assertStatus(200)
@@ -26,22 +25,23 @@ class ProductControllerTest extends TestCase
     {
         $product = factory(Product::class)->create();
 
-        $response = $this->get(route('products.show', ['product' => $product->id]));
+        $response = $this->get('/api/v1/products/1');
         $response
             ->assertStatus(200)
             ->assertJson($product->toArray());
 
-        $response = $this->get(route('products.show', ['product' => 2]));
+        $response = $this->getJson('/api/v1/products/2');
+
         $response
             ->assertStatus(404)
             ->assertJsonFragment([
-                'message' => 'Not Found'
+                'message' => 'No query results for model [App\Models\Admin\Product] 2'
             ]);
     }
 
     public function testCheckIfStoreFunctionIsWorking()
     {
-        $response = $this->postJson(route('products.store'), [
+        $response = $this->postJson('/api/v1/products', [
             'title' => 'test',
             'description' => 'description_test',
             'price' => 100
@@ -63,7 +63,7 @@ class ProductControllerTest extends TestCase
         ]);
 
         $response = $this->putJson(
-            route('products.update', ['product' => $product->id]),
+            "/api/v1/products/{$product->id}",
             [
                 'title' => 'test_update',
                 'description' => 'update_description',
@@ -87,8 +87,8 @@ class ProductControllerTest extends TestCase
     {
         $product = factory(Product::class)->create();
 
-        $response = $this->delete(
-            route('products.destroy', ['product' => $product->id])
+        $response = $this->deleteJson(
+            "/api/v1/products/{$product->id}"
         );
         $response
             ->assertStatus(200)
@@ -96,13 +96,13 @@ class ProductControllerTest extends TestCase
                 'message' => 'Deleted Successfully'
             ]);
 
-        $response = $this->delete(
-            route('products.destroy', ['product' => $product->id])
+        $response = $this->deleteJson(
+            "/api/v1/products/{$product->id}"
         );
         $response
             ->assertStatus(404)
-            ->assertJson([
-                'message' => 'Not Found'
+            ->assertJsonFragment([
+                'message' => 'No query results for model [App\Models\Admin\Product] 1'
             ]);
     }
 }

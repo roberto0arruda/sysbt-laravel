@@ -2,61 +2,35 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Product[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
-     */
     public function index()
     {
         return Product::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Request $request)
     {
         try {
             return Product::create($request->all())->refresh();
         } catch (\Exception $e) {
             if (config('app.debug')) {
-                return response()->json(['msg' => $e->getMessage()]);
+                return ['message' => $e->getMessage()];
             }
 
-            return response()->json(['msg' => 'Erro ao criar produto']);
+            return ['message' => 'Erro ao criar produto'];
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return Product|\Illuminate\Http\JsonResponse
-     */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::find($id);
-
-        return $product ?? response()->json(['message' => 'Not Found'], 404);
+        return $product;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param Product $product
-     * @return Product
-     */
     public function update(Request $request, Product $product)
     {
         $product->update($request->all());
@@ -64,20 +38,10 @@ class ProductController extends Controller
         return $product;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        try {
-            Product::findOrFail($id)->delete();
+        $product->delete();
 
-            return response()->json(['message' => 'Deleted Successfully'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Not Found'], 404);
-        }
+        return ['message' => 'Deleted Successfully'];
     }
 }
