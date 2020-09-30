@@ -5,14 +5,20 @@
 @section('content_header')
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Planos <a href="{{ route('plans.create') }}" class="btn btn-xs btn-dark"><i class="fa fa-plus"
-                                                                                      aria-hidden="true"></i> ADD</a>
+      <h1>
+        Planos
+        <a href="{{ route('plans.create') }}" class="btn btn-xs btn-dark">
+          <i class="fa fa-plus" aria-hidden="true"></i> ADD
+        </a>
       </h1>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="{{ route('admin.home') }}"><i class="fas fa-tachometer-alt"></i>
-            Dashboard</a></li>
+        <li class="breadcrumb-item">
+          <a href="{{ route('admin.home') }}">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+          </a>
+        </li>
         <li class="breadcrumb-item active">Planos</li>
       </ol>
     </div>
