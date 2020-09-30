@@ -42,6 +42,6 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return ['message' => 'Deleted Successfully'];
+        return response()->noContent(); // 204 - No Content
     }
 }

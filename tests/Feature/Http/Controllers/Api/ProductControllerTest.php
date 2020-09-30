@@ -90,11 +90,7 @@ class ProductControllerTest extends TestCase
         $response = $this->deleteJson(
             "/api/v1/products/{$product->id}"
         );
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'message' => 'Deleted Successfully'
-            ]);
+        $response->assertStatus(204);
 
         $response = $this->deleteJson(
             "/api/v1/products/{$product->id}"

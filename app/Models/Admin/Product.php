@@ -3,10 +3,15 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['title', 'price', 'description', 'stock', 'photo1', 'photo2', 'photo3'];
+
+    protected $dates = ['deleted_at'];
 
     public function orders()
     {
