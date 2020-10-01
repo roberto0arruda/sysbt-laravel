@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductFieldsValidation;
 use App\Models\Admin\Product;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -13,7 +13,7 @@ class ProductController extends Controller
         return Product::all();
     }
 
-    public function store(Request $request)
+    public function store(ProductFieldsValidation $request)
     {
         try {
             return Product::create($request->all())->refresh();
@@ -31,7 +31,7 @@ class ProductController extends Controller
         return $product;
     }
 
-    public function update(Request $request, Product $product)
+    public function update(ProductFieldsValidation $request, Product $product)
     {
         $product->update($request->all());
 

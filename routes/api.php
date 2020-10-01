@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BuyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1')->namespace('Api')->group(function () {
+Route::prefix('v1')->namespace('Api')->as('api.')->group(function () {
 
     Route::group(['prefix' => 'auth', 'middleware' => 'api'], function () {
-        Route::post('login', 'AuthController@login');
-        Route::post('logout', 'AuthController@logout');
-        Route::post('refresh', 'AuthController@refresh');
-        Route::post('me', 'AuthController@me');
+        Route::post('login', [AuthController::class, 'login'])->name('login');
+        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+        Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
+        Route::post('me', [AuthController::class, 'me'])->name('me');
     });
 
     Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -33,5 +35,5 @@ Route::prefix('v1')->namespace('Api')->group(function () {
         'finances' => 'FinanceController'
     ]);
 
-    Route::get('buys/{product_id}/with_sold', 'BuyController@getWithSold');
+    Route::get('buys/{product_id}/with_sold', [BuyController::class, 'getWithSold'])->name('buys');
 });

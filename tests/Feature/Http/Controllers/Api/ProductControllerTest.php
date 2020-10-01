@@ -12,25 +12,26 @@ class ProductControllerTest extends TestCase
 
     public function testCheckIfIndexFunctionIsWorking()
     {
-        factory(Product::class, 10)->create();
+        $products = factory(Product::class, 10)->create();
 
-        $response = $this->get('/api/v1/products');
+        $response = $this->get(route('api.products.index'));
 
         $response
             ->assertStatus(200)
-            ->assertJsonCount(10);
+            ->assertJsonCount(10)
+            ->assertJson($products->toArray());
     }
 
     public function testCheckIfShowFunctionIsWorking()
     {
         $product = factory(Product::class)->create();
 
-        $response = $this->get("/api/v1/products/{$product->id}");
+        $response = $this->getJson(route('api.products.show', ['product' => $product->id]));
         $response
             ->assertStatus(200)
             ->assertJson($product->toArray());
 
-        $response = $this->getJson('/api/v1/products/2');
+        $response = $this->getJson(route('api.products.show', ['product' => 2]));
 
         $response
             ->assertStatus(404)
@@ -41,7 +42,7 @@ class ProductControllerTest extends TestCase
 
     public function testCheckIfStoreFunctionIsWorking()
     {
-        $response = $this->postJson('/api/v1/products', [
+        $response = $this->postJson(route('api.products.store'), [
             'title' => 'test',
             'description' => 'description_test',
             'price' => 100
@@ -63,7 +64,7 @@ class ProductControllerTest extends TestCase
         ]);
 
         $response = $this->putJson(
-            "/api/v1/products/{$product->id}",
+            route('api.products.update', ['product' => $product->id]),
             [
                 'title' => 'test_update',
                 'description' => 'update_description',
@@ -87,14 +88,10 @@ class ProductControllerTest extends TestCase
     {
         $product = factory(Product::class)->create();
 
-        $response = $this->deleteJson(
-            "/api/v1/products/{$product->id}"
-        );
+        $response = $this->deleteJson(route('api.products.destroy', ['product' => $product->id]));
         $response->assertStatus(204);
 
-        $response = $this->deleteJson(
-            "/api/v1/products/{$product->id}"
-        );
+        $response = $this->deleteJson(route('api.products.destroy', ['product' => $product->id]));
         $response
             ->assertStatus(404)
             ->assertJsonFragment([
