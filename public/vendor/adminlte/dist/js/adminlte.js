@@ -1,5 +1,5 @@
 /*!
- * AdminLTE v3.0.4 (https://adminlte.io)
+ * AdminLTE v3.0.5 (https://adminlte.io)
  * Copyright 2014-2020 Colorlib <http://colorlib.com>
  * Licensed under MIT (https://github.com/ColorlibHQ/AdminLTE/blob/master/LICENSE)
  */
@@ -372,13 +372,17 @@
         }
 
         if (offset !== false) {
-          if (max == heights.control_sidebar) {
-            $(Selector.CONTENT).css('min-height', max + offset);
-          } else if (max == heights.window) {
-            $(Selector.CONTENT).css('min-height', max + offset - heights.header - heights.footer);
-          } else {
-            $(Selector.CONTENT).css('min-height', max + offset - heights.header);
-          }
+            if (max == heights.control_sidebar) {
+                $(Selector.CONTENT).css('min-height', max + offset);
+            } else if (max == heights.window) {
+                $(Selector.CONTENT).css('min-height', max + offset - heights.header - heights.footer);
+            } else {
+                $(Selector.CONTENT).css('min-height', max + offset - heights.header);
+            }
+
+            if (this._isFooterFixed()) {
+                $(Selector.CONTENT).css('min-height', parseFloat($(Selector.CONTENT).css('min-height')) + heights.footer);
+            }
         }
 
         if ($('body').hasClass(ClassName.LAYOUT_FIXED)) {
@@ -428,38 +432,44 @@
           _this.fixLayoutHeight();
         });
         $(Selector.PUSHMENU_BTN).on('collapsed.lte.pushmenu shown.lte.pushmenu', function () {
-          _this.fixLayoutHeight();
+            _this.fixLayoutHeight();
         });
-        $(Selector.CONTROL_SIDEBAR_BTN).on('collapsed.lte.controlsidebar', function () {
-          _this.fixLayoutHeight();
-        }).on('expanded.lte.controlsidebar', function () {
-          _this.fixLayoutHeight('control_sidebar');
-        });
-        $(window).resize(function () {
-          _this.fixLayoutHeight();
-        });
-        $('body.hold-transition').removeClass('hold-transition');
+          $(Selector.CONTROL_SIDEBAR_BTN).on('collapsed.lte.controlsidebar', function () {
+              _this.fixLayoutHeight();
+          }).on('expanded.lte.controlsidebar', function () {
+              _this.fixLayoutHeight('control_sidebar');
+          });
+          $(window).resize(function () {
+              _this.fixLayoutHeight();
+          });
+          setTimeout(function () {
+              $('body.hold-transition').removeClass('hold-transition');
+          }, 50);
       };
 
-      _proto._max = function _max(numbers) {
-        // Calculate the maximum number in a list
-        var max = 0;
-        Object.keys(numbers).forEach(function (key) {
-          if (numbers[key] > max) {
-            max = numbers[key];
-          }
-        });
-        return max;
-      } // Static
-      ;
+        _proto._max = function _max(numbers) {
+            // Calculate the maximum number in a list
+            var max = 0;
+            Object.keys(numbers).forEach(function (key) {
+                if (numbers[key] > max) {
+                    max = numbers[key];
+                }
+            });
+            return max;
+        };
 
-      Layout._jQueryInterface = function _jQueryInterface(config) {
-        if (config === void 0) {
-          config = '';
-        }
+        _proto._isFooterFixed = function _isFooterFixed() {
+            return $('.main-footer').css('position') === 'fixed';
+        } // Static
+        ;
 
-        return this.each(function () {
-          var data = $(this).data(DATA_KEY);
+        Layout._jQueryInterface = function _jQueryInterface(config) {
+            if (config === void 0) {
+                config = '';
+            }
+
+            return this.each(function () {
+                var data = $(this).data(DATA_KEY);
 
           var _options = $.extend({}, Default, $(this).data());
 
