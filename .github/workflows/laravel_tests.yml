@@ -1,0 +1,65 @@
+name: Laravel Tests
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'develop'
+
+jobs:
+  # Label of the job
+  laravel-tests-with-db:
+    name: Laravel run tests
+    # Containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    # Docker Hub image that `container-job` executes in
+    container:
+      image: roberto0arruda/php-fpm
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      mysql:
+        # Docker Hub image
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: laravel
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306:3306
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    #      redis:
+    #        image: redis:alpine3.11
+    #        ports:
+    #          - "6379:6379"
+
+    steps:
+      # Downloads a copy of the code in your repository before running CI tests
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Laravel Setup - Install Dependencies
+        run: |
+          composer config -g github-oauth.github.com "2ac881cec64ac18ba2fb1b2ea8447390b5afbbdc"
+          composer install -q --no-ansi --no-interaction --no-scripts --prefer-dist
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: php artisan test #vendor/bin/phpunit
+        env:
+          DB_HOST: mysql
+          DB_PORT: 3306
+          DB_DATABASE: laravel
+          DB_USER: root
+          DB_PASSWORD:
