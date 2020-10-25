@@ -9,7 +9,7 @@ on:
 jobs:
   # Label of the job
   laravel-tests-with-db:
-    name: Laravel run tests
+    name: Laravel run tests with mysql
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
     # Docker Hub image that `container-job` executes in
@@ -45,9 +45,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Laravel Setup - Install Dependencies
-        run: |
-          composer config -g github-oauth.github.com "2ac881cec64ac18ba2fb1b2ea8447390b5afbbdc"
-          composer install -q --no-ansi --no-interaction --no-scripts --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts --prefer-dist
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
