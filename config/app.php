@@ -165,6 +165,12 @@ return [
         /*
          * Package Service Providers...
          */
+        Migrator\MigrationServiceProvider::class,
+
+        /*
+         * Domain Service Providers...
+         */
+        App\Domain\Users\Providers\DomainServiceProvider::class,
 
         /*
          * Application Service Providers...
