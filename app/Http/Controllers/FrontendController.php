@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Support\Http\Controllers\Controller;
 
 class FrontendController extends Controller
 {

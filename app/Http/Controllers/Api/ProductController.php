@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductFieldsValidation;
 use App\Models\Admin\Product;
+use App\Support\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {

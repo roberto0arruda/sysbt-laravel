@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUpdatePlan;
 use App\Models\Admin\Plan;
+use App\Support\Http\Controllers\Controller;
 
 class PlanController extends Controller
 {

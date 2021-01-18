@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Admin\Sale;
+use App\Support\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {

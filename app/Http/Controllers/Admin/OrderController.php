@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\OrdersFormRequest;
 use App\Models\Admin\Order;
 use App\Models\Admin\Product;
+use App\Support\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {

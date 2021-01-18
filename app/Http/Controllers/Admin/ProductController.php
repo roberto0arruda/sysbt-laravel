@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Requests\Admin\ProductsStoreRequest;
 use App\Http\Requests\Admin\ProductsUpdateRequest;
-use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Models\Admin\Customer;
 use App\Models\Admin\Product;
+use App\Support\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {

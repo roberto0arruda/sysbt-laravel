@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUpdateCategoryFormRequest;
+use App\Support\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller

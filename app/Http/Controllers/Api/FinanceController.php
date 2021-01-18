@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Admin\Buy;
+use App\Support\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class FinanceController extends Controller
 {

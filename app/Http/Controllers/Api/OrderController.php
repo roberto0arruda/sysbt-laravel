@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Support\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
