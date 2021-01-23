@@ -3,11 +3,14 @@
 
 namespace App\Domain\Users\Database\Factories;
 
+use App\Domain\Users\Models\User;
 use App\Support\Database\ModelFactory;
 use Illuminate\Support\Str;
 
 class UserFactory extends ModelFactory
 {
+    protected $model = User::class;
+
     protected function fields(): array
     {
         return [
