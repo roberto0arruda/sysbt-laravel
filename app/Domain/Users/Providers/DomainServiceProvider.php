@@ -3,6 +3,7 @@
 
 namespace App\Domain\Users\Providers;
 
+use App\Domain\Users\Database\Factories\UserFactory;
 use App\Domain\Users\Database\Migrations\CreatePasswordResetsTable;
 use App\Domain\Users\Database\Migrations\CreateUsersTable;
 use Illuminate\Support\ServiceProvider;
@@ -15,6 +16,7 @@ class DomainServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerMigrations();
+        $this->registerModelFactories();
     }
 
     protected function registerMigrations()
@@ -23,5 +25,10 @@ class DomainServiceProvider extends ServiceProvider
             CreateUsersTable::class,
             CreatePasswordResetsTable::class
         ]);
+    }
+
+    protected function registerModelFactories()
+    {
+        (new UserFactory())->define();
     }
 }
