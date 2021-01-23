@@ -13,8 +13,6 @@ Route::get('/shop', function () {
 Route::get('/category/{item}', 'FrontController@item')->name('shop-item');
 Route::get('/client', 'ClientController')->middleware(['auth'])->name('client');
 
-Auth::routes(['register' => true, 'verify' => true]);
-
 Route::group(['middleware' => ['auth', 'isAdmin', 'verified'], 'namespace' => 'Admin'], function () {
     Route::get('/admin/dashboard', 'HomeController@index')->name('admin.home');
     Route::resource('admin/products', 'ProductController');

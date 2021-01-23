@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BuyController;
+use App\Unit\Auth\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->namespace('Api')->as('api.')->group(function () {
 
     Route::group(['prefix' => 'auth', 'middleware' => 'api'], function () {
-        Route::post('login', [AuthController::class, 'login'])->name('login');
-        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-        Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
         Route::post('me', [AuthController::class, 'me'])->name('me');
     });
 
