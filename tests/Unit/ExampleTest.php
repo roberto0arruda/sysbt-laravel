@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends TestCase
 {
@@ -17,9 +16,10 @@ class ExampleTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
-    public function UnitOfWork_StateUnderTest_ExpectedBehavior()
+    public function testUnitOfWorkStateUnderTestExpectedBehavior()
     {
+        // example name of test: UnitOfWork_StateUnderTest_ExpectedBehavior
+
         // Given
         // promova o estado sob teste...
 
@@ -32,9 +32,10 @@ class ExampleTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
-    public function ActionVerb_WhoOrWhatToDo_ExpectedBehavior()
+    public function testActionVerbWhoOrWhatToDoExpectedBehavior()
     {
+        // example name of test: ActionVerb_WhoOrWhatToDo_ExpectedBehavior
+
         // Given
         // promova o estado sob teste...
 
