@@ -22,5 +22,7 @@ class Api extends RouteFile
         $this->router->post('login', 'AuthController@login')->name('login');
         $this->router->post('logout', 'AuthController@logout')->name('logout');
         $this->router->post('refresh', 'AuthController@refresh')->name('refresh');
+
+        $this->router->post('register', 'Api\RegisterController@register')->name('register');
     }
 }
