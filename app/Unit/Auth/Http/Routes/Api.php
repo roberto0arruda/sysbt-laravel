@@ -26,5 +26,6 @@ class Api extends RouteFile
         $this->router->post('register', 'Api\RegisterController@register')->name('register');
 
         $this->router->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+        $this->router->post('password/reset', 'Api\ResetPasswordController@reset');
     }
 }
