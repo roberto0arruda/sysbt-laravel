@@ -4,7 +4,9 @@ namespace App\Unit\Auth\Http\Controllers\Api;
 
 use App\Support\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ResetPasswordController extends Controller
 {
@@ -46,5 +48,43 @@ class ResetPasswordController extends Controller
         $credentials = $request->only('email', 'password', 'token');
 
         return array_merge($credentials, ['password_confirmation' => $credentials['password']]);
+    }
+
+    /**
+     * Get the token for user authenticated.
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    protected function getTokenFromUser()
+    {
+        try {
+            $user = $this->guard()->user();
+
+            return auth('api')->fromUser($user);
+        } catch (\Exception $th) {
+            throw new \Exception('Unable to get a token');
+        }
+    }
+
+    /**
+     * Get the response for a successful password reset.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param string $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    protected function sendResetResponse(Request $request, $response)
+    {
+        if ($request->wantsJson()) {
+            return new JsonResponse([
+                'message' => trans($response),
+                'token' => $this->getTokenFromUser()
+            ], Response::HTTP_OK);
+        }
+
+        return redirect($this->redirectPath())
+            ->with('status', trans($response));
     }
 }
