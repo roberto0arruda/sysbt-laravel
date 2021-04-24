@@ -1,16 +1,13 @@
 <?php
 
-namespace Tests\Feature\Models\Admin;
+namespace App\Domain\Products\Tests;
 
-use App\Models\Admin\Product;
+use App\Domain\Products\Models\Product;
+use App\Support\Tests\TestCase;
 use Exception;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
 
-class ProductTest extends TestCase
+class IntegrationModelProductTest extends TestCase
 {
-    use DatabaseMigrations;
-
     public function testCheckIfTheProductListingIsWorking()
     {
         factory(Product::class, 2)->create();

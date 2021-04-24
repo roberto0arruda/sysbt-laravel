@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Domain\Products\Models;
 
-use App\Models\Traits\Uuid;
+use App\Models\Admin\Buy;
+use App\Models\Admin\Order;
+use App\Models\Admin\Sale;
+use App\Support\Domain\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

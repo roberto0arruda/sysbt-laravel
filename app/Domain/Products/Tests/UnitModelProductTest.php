@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\Models\Admin;
+namespace App\Domain\Products\Tests;
 
-use App\Models\Admin\Product;
-use App\Models\Traits\Uuid;
+use App\Domain\Products\Models\Product;
+use App\Support\Domain\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use PHPUnit\Framework\TestCase;
 
-class ProductTest extends TestCase
+class UnitModelProductTest extends TestCase
 {
     private $product;
 
